@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StartupProfileController;
 use App\Http\Controllers\MentorProfileController;
+use App\Http\Controllers\AdminMentorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,6 +43,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
+    Route::get('/admin/mentors', [AdminMentorController::class, 'index'])->name('admin.mentors.index');
+    Route::patch('/admin/mentors/{mentor}/approve', [AdminMentorController::class, 'approve'])->name('admin.mentors.approve');
+    Route::patch('/admin/mentors/{mentor}/reject', [AdminMentorController::class, 'reject'])->name('admin.mentors.reject');
 });
 
 require __DIR__.'/auth.php';
