@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StartupProfileController;
 use App\Http\Controllers\MentorProfileController;
 use App\Http\Controllers\AdminMentorController;
+use App\Http\Controllers\MentorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,9 @@ Route::middleware(['auth', 'role:startup'])->group(function () {
         Route::get('/startup/dashboard', function () {
             return view('startup.dashboard');
         })->name('startup.dashboard');
+
+        Route::get('/mentors', [MentorController::class, 'index'])->name('mentors.index');
+        Route::get('/mentors/{mentor}', [MentorController::class, 'show'])->name('mentors.show');
     });
 });
 
