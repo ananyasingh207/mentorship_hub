@@ -32,8 +32,14 @@ class AuthenticatedSessionController extends Controller
         if ($user->role === 'admin') {
             return redirect()->intended(route('admin.dashboard', absolute: false));
         } elseif ($user->role === 'startup') {
+            if (!$user->startupProfile()->exists()) {
+                return redirect()->intended(route('startup.profile.create', absolute: false));
+            }
             return redirect()->intended(route('startup.dashboard', absolute: false));
         } elseif ($user->role === 'mentor') {
+            if (!$user->mentorProfile()->exists()) {
+                return redirect()->intended(route('mentor.profile.create', absolute: false));
+            }
             return redirect()->intended(route('mentor.dashboard', absolute: false));
         }
 

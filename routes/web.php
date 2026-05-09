@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StartupProfileController;
+use App\Http\Controllers\MentorProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,15 +17,25 @@ Route::middleware('auth')->group(function () {
 
 // Role-based routes
 Route::middleware(['auth', 'role:startup'])->group(function () {
-    Route::get('/startup/dashboard', function () {
-        return view('startup.dashboard');
-    })->name('startup.dashboard');
+    Route::get('/startup/profile/create', [StartupProfileController::class, 'create'])->name('startup.profile.create');
+    Route::post('/startup/profile/store', [StartupProfileController::class, 'store'])->name('startup.profile.store');
+
+    Route::middleware('profile.completed')->group(function () {
+        Route::get('/startup/dashboard', function () {
+            return view('startup.dashboard');
+        })->name('startup.dashboard');
+    });
 });
 
 Route::middleware(['auth', 'role:mentor'])->group(function () {
-    Route::get('/mentor/dashboard', function () {
-        return view('mentor.dashboard');
-    })->name('mentor.dashboard');
+    Route::get('/mentor/profile/create', [MentorProfileController::class, 'create'])->name('mentor.profile.create');
+    Route::post('/mentor/profile/store', [MentorProfileController::class, 'store'])->name('mentor.profile.store');
+
+    Route::middleware('profile.completed')->group(function () {
+        Route::get('/mentor/dashboard', function () {
+            return view('mentor.dashboard');
+        })->name('mentor.dashboard');
+    });
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

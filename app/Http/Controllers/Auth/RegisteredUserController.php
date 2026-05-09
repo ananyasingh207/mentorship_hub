@@ -49,9 +49,9 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         if ($user->role === 'startup') {
-            return redirect(route('startup.dashboard', absolute: false));
+            return redirect(route('startup.profile.create', absolute: false));
         } elseif ($user->role === 'mentor') {
-            return redirect(route('mentor.dashboard', absolute: false));
+            return redirect(route('mentor.profile.create', absolute: false));
         }
 
         return redirect('/');
