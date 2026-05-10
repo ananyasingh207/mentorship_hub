@@ -5,6 +5,8 @@ use App\Http\Controllers\StartupProfileController;
 use App\Http\Controllers\MentorProfileController;
 use App\Http\Controllers\AdminMentorController;
 use App\Http\Controllers\MentorController;
+use App\Http\Controllers\StartupRequestController;
+use App\Http\Controllers\MentorRequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,6 +31,11 @@ Route::middleware(['auth', 'role:startup'])->group(function () {
 
         Route::get('/mentors', [MentorController::class, 'index'])->name('mentors.index');
         Route::get('/mentors/{mentor}', [MentorController::class, 'show'])->name('mentors.show');
+
+        // Startup Requests
+        Route::get('/mentors/{mentor}/request', [StartupRequestController::class, 'create'])->name('startup.requests.create');
+        Route::post('/mentors/{mentor}/request', [StartupRequestController::class, 'store'])->name('startup.requests.store');
+        Route::get('/startup/requests', [StartupRequestController::class, 'index'])->name('startup.requests.index');
     });
 });
 
@@ -40,6 +47,11 @@ Route::middleware(['auth', 'role:mentor'])->group(function () {
         Route::get('/mentor/dashboard', function () {
             return view('mentor.dashboard');
         })->name('mentor.dashboard');
+
+        // Mentor Requests
+        Route::get('/mentor/requests', [MentorRequestController::class, 'index'])->name('mentor.requests.index');
+        Route::patch('/mentor/requests/{mentorRequest}/accept', [MentorRequestController::class, 'accept'])->name('mentor.requests.accept');
+        Route::patch('/mentor/requests/{mentorRequest}/reject', [MentorRequestController::class, 'reject'])->name('mentor.requests.reject');
     });
 });
 

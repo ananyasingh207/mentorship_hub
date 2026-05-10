@@ -45,10 +45,9 @@
                     </div>
 
                     <div class="mt-10 pt-6 border-t flex justify-end">
-                        <!-- Request functionality will go here in Phase 5 -->
-                        <button disabled class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150 cursor-not-allowed" title="Coming soon">
+                        <a href="{{ route('startup.requests.create', $mentor) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                             Request Mentorship
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

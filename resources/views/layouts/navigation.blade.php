@@ -22,6 +22,18 @@
                     <x-nav-link :href="$dashboardRoute" :active="request()->routeIs('startup.dashboard') || request()->routeIs('mentor.dashboard') || request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @if(auth()->user()->role === 'startup' && auth()->user()->startupProfile()->exists())
+                        <x-nav-link :href="route('startup.requests.index')" :active="request()->routeIs('startup.requests.*')">
+                            {{ __('My Requests') }}
+                        </x-nav-link>
+                    @endif
+
+                    @if(auth()->user()->role === 'mentor' && auth()->user()->mentorProfile()->exists())
+                        <x-nav-link :href="route('mentor.requests.index')" :active="request()->routeIs('mentor.requests.*')">
+                            {{ __('My Requests') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -74,6 +86,18 @@
             <x-responsive-nav-link :href="$dashboardRoute" :active="request()->routeIs('startup.dashboard') || request()->routeIs('mentor.dashboard') || request()->routeIs('admin.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @if(auth()->user()->role === 'startup' && auth()->user()->startupProfile()->exists())
+                <x-responsive-nav-link :href="route('startup.requests.index')" :active="request()->routeIs('startup.requests.*')">
+                    {{ __('My Requests') }}
+                </x-responsive-nav-link>
+            @endif
+
+            @if(auth()->user()->role === 'mentor' && auth()->user()->mentorProfile()->exists())
+                <x-responsive-nav-link :href="route('mentor.requests.index')" :active="request()->routeIs('mentor.requests.*')">
+                    {{ __('My Requests') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
