@@ -86,13 +86,66 @@
                                 @endif
                             @else
                                 <div class="flex justify-end">
-                                    <a href="{{ route('startup.requests.create', $mentor) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        Request Mentorship
-                                    </a>
+                                    @if($requestStatus === 'no_request')
+                                        <a href="{{ route('startup.requests.create', $mentor) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                            Request Mentorship
+                                        </a>
+                                    @elseif($requestStatus === 'pending')
+                                        <button disabled class="inline-flex items-center px-4 py-2 bg-gray-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest cursor-not-allowed">
+                                            Request Pending
+                                        </button>
+                                    @elseif($requestStatus === 'accepted')
+                                        <button disabled class="inline-flex items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest cursor-not-allowed">
+                                            Mentorship Active
+                                        </button>
+                                    @elseif($requestStatus === 'rejected')
+                                        <button disabled class="inline-flex items-center px-4 py-2 bg-red-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest cursor-not-allowed">
+                                            Request Rejected
+                                        </button>
+                                    @endif
                                 </div>
                             @endif
                         </div>
                     @endif
+
+                    <!-- Reviews Section -->
+                    <div class="mt-10 pt-6 border-t">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Reviews</h3>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    {{ number_format($averageRating, 1) }} / 5.0 ({{ $reviewCount }} {{ Str::plural('review', $reviewCount) }})
+                                </p>
+                            </div>
+                            @if(isset($canReview) && $canReview)
+                                <div>
+                                    <a href="{{ route('reviews.create', $mentor) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        Write a Review
+                                    </a>
+                                </div>
+                            @endif
+                        </div>
+
+                        @if($reviews->isEmpty())
+                            <p class="text-gray-500 italic">No reviews yet for this mentor.</p>
+                        @else
+                            <div class="space-y-6">
+                                @foreach($reviews as $review)
+                                    <div class="bg-gray-50 p-4 rounded-lg border">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <div class="font-semibold text-gray-900">{{ $review->startup->name }}</div>
+                                            <div class="text-sm text-gray-500">{{ $review->created_at->format('M d, Y') }}</div>
+                                        </div>
+                                        <div class="flex items-center mb-2">
+                                            <span class="text-yellow-400 font-bold mr-1">★ {{ $review->rating }}</span>
+                                            <span class="text-gray-400 text-sm">/ 5</span>
+                                        </div>
+                                        <p class="text-gray-700">{{ $review->review }}</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

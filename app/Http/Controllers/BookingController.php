@@ -70,4 +70,46 @@ class BookingController extends Controller
             
         return view('mentor.bookings.index', compact('bookings'));
     }
+
+    public function complete(Booking $booking)
+    {
+        if ($booking->mentor_id !== auth()->id()) {
+            abort(403);
+        }
+
+        if ($booking->status !== 'scheduled') {
+            return redirect()->back()->with('error', 'Only scheduled bookings can be marked as completed.');
+        }
+
+        $booking->update([
+            'status' => 'completed',
+        ]);
+
+        return redirect()->back()->with('success', 'Booking marked as completed successfully!');
+    }
+
+    public function cancel(Booking $booking)
+    {
+        if ($booking->startup_id !== auth()->id()) {
+            abort(403);
+        }
+
+        if ($booking->status !== 'scheduled') {
+            return redirect()->back()->with('error', 'Only scheduled bookings can be cancelled.');
+        }
+
+        DB::transaction(function () use ($booking) {
+            $booking->update([
+                'status' => 'cancelled',
+            ]);
+
+            if ($booking->timeSlot) {
+                $booking->timeSlot->update([
+                    'is_booked' => false,
+                ]);
+            }
+        });
+
+        return redirect()->back()->with('success', 'Booking cancelled successfully.');
+    }
 }

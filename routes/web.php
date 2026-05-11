@@ -10,6 +10,7 @@ use App\Http\Controllers\MentorRequestController;
 use App\Http\Controllers\TimeSlotController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,6 +48,11 @@ Route::middleware(['auth', 'role:startup'])->group(function () {
         // Startup Bookings
         Route::post('/bookings/{slot}', [BookingController::class, 'store'])->name('bookings.store');
         Route::get('/startup/bookings', [BookingController::class, 'startupIndex'])->name('startup.bookings.index');
+        Route::patch('/startup/bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('startup.bookings.cancel');
+
+        // Startup Reviews
+        Route::get('/mentors/{mentor}/review', [ReviewController::class, 'create'])->name('reviews.create');
+        Route::post('/mentors/{mentor}/review', [ReviewController::class, 'store'])->name('reviews.store');
     });
 });
 
@@ -72,6 +78,10 @@ Route::middleware(['auth', 'role:mentor'])->group(function () {
         Route::get('/mentor/slots', [TimeSlotController::class, 'index'])->name('mentor.slots.index');
         Route::post('/mentor/slots', [TimeSlotController::class, 'store'])->name('mentor.slots.store');
         Route::get('/mentor/bookings', [BookingController::class, 'mentorIndex'])->name('mentor.bookings.index');
+        Route::patch('/mentor/bookings/{booking}/complete', [BookingController::class, 'complete'])->name('mentor.bookings.complete');
+
+        // Mentor Reviews Dashboard
+        Route::get('/mentor/reviews', [ReviewController::class, 'mentorIndex'])->name('mentor.reviews.index');
     });
 });
 

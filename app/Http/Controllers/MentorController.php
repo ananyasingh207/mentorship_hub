@@ -18,7 +18,14 @@ class MentorController extends Controller
 
         $mentors = $query->latest()->get();
 
-        return view('mentors.index', compact('mentors'));
+        $mentorRequests = [];
+        if (auth()->check() && auth()->user()->role === 'startup') {
+            $mentorRequests = \App\Models\MentorRequest::where('startup_id', auth()->id())
+                ->pluck('status', 'mentor_id')
+                ->toArray();
+        }
+
+        return view('mentors.index', compact('mentors', 'mentorRequests'));
     }
 
     public function show(MentorProfile $mentor)
@@ -32,11 +39,23 @@ class MentorController extends Controller
         $hasAcceptedRequest = false;
         $availableSlots = collect();
 
+        $reviews = \App\Models\Review::with('startup')->where('mentor_id', $mentor->user_id)->latest()->get();
+        $averageRating = $reviews->count() > 0 ? round($reviews->avg('rating'), 1) : 0;
+        $reviewCount = $reviews->count();
+
+        $canReview = false;
+        $requestStatus = 'no_request';
+
         if (auth()->check() && auth()->user()->role === 'startup') {
-            $hasAcceptedRequest = \App\Models\MentorRequest::where('startup_id', auth()->id())
+            $existingRequest = \App\Models\MentorRequest::where('startup_id', auth()->id())
                 ->where('mentor_id', $mentor->user_id)
-                ->where('status', 'accepted')
-                ->exists();
+                ->first();
+
+            if ($existingRequest) {
+                $requestStatus = $existingRequest->status;
+            }
+
+            $hasAcceptedRequest = $requestStatus === 'accepted';
 
             if ($hasAcceptedRequest) {
                 $today = \Carbon\Carbon::today()->toDateString();
@@ -55,8 +74,20 @@ class MentorController extends Controller
                     ->orderBy('start_time')
                     ->get();
             }
+
+            // Check if user can review
+            $hasCompletedBooking = \App\Models\Booking::where('startup_id', auth()->id())
+                ->where('mentor_id', $mentor->user_id)
+                ->where('status', 'completed')
+                ->exists();
+
+            $existingReview = \App\Models\Review::where('startup_id', auth()->id())
+                ->where('mentor_id', $mentor->user_id)
+                ->exists();
+
+            $canReview = $hasCompletedBooking && !$existingReview;
         }
 
-        return view('mentors.show', compact('mentor', 'hasAcceptedRequest', 'availableSlots'));
+        return view('mentors.show', compact('mentor', 'hasAcceptedRequest', 'availableSlots', 'reviews', 'averageRating', 'reviewCount', 'canReview', 'requestStatus'));
     }
 }

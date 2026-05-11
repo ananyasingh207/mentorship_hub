@@ -55,9 +55,27 @@
                                 <a href="{{ route('mentors.show', $mentor->id) }}" class="w-full inline-flex justify-center items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                     View Profile
                                 </a>
-                                <a href="{{ route('startup.requests.create', $mentor) }}" class="w-full inline-flex justify-center items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                    Request Mentorship
-                                </a>
+                                @php
+                                    $status = $mentorRequests[$mentor->user_id] ?? 'no_request';
+                                @endphp
+                                
+                                @if($status === 'no_request')
+                                    <a href="{{ route('startup.requests.create', $mentor) }}" class="w-full inline-flex justify-center items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        Request Mentorship
+                                    </a>
+                                @elseif($status === 'pending')
+                                    <button disabled class="w-full inline-flex justify-center items-center px-4 py-2 bg-gray-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest cursor-not-allowed">
+                                        Request Pending
+                                    </button>
+                                @elseif($status === 'accepted')
+                                    <button disabled class="w-full inline-flex justify-center items-center px-4 py-2 bg-indigo-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest cursor-not-allowed">
+                                        Mentorship Active
+                                    </button>
+                                @elseif($status === 'rejected')
+                                    <button disabled class="w-full inline-flex justify-center items-center px-4 py-2 bg-red-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest cursor-not-allowed">
+                                        Request Rejected
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div>

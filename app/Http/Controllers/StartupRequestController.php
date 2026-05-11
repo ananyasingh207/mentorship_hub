@@ -37,14 +37,13 @@ class StartupRequestController extends Controller
             'message' => ['required', 'string', 'max:1000'],
         ]);
 
-        // Prevent duplicate pending requests
+        // Prevent duplicate requests (only one request allowed total per mentor)
         $existingRequest = MentorRequest::where('startup_id', auth()->id())
             ->where('mentor_id', $mentor->user_id)
-            ->where('status', 'pending')
             ->exists();
 
         if ($existingRequest) {
-            return redirect()->back()->with('error', 'You already have a pending request for this mentor.');
+            return redirect()->back()->with('error', 'You have already sent a request to this mentor.');
         }
 
         MentorRequest::create([
