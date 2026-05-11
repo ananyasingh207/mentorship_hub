@@ -19,10 +19,26 @@ class MentorController extends Controller
         $mentors = $query->latest()->get();
 
         $mentorRequests = [];
+        $startupProfile = null;
         if (auth()->check() && auth()->user()->role === 'startup') {
             $mentorRequests = \App\Models\MentorRequest::where('startup_id', auth()->id())
                 ->pluck('status', 'mentor_id')
                 ->toArray();
+
+            $startupProfile = auth()->user()->startupProfile;
+        }
+
+        // Calculate match scores
+        if ($startupProfile) {
+            foreach ($mentors as $mentor) {
+                $mentor->match_score = \App\Services\MentorMatchingService::calculateMatchScore($startupProfile, $mentor);
+            }
+            // Sort by highest match first
+            $mentors = $mentors->sortByDesc('match_score')->values();
+        } else {
+            foreach ($mentors as $mentor) {
+                $mentor->match_score = null;
+            }
         }
 
         return view('mentors.index', compact('mentors', 'mentorRequests'));

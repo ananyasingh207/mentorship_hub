@@ -36,9 +36,16 @@
                                     <h3 class="text-lg font-bold text-gray-900">{{ $mentor->user->name }}</h3>
                                     <p class="text-sm text-gray-500">Joined {{ $mentor->created_at->diffForHumans() }}</p>
                                 </div>
-                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">
-                                    {{ ucfirst($mentor->pricing) }}
-                                </span>
+                                <div class="flex flex-col items-end space-y-1">
+                                    <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">
+                                        {{ ucfirst($mentor->pricing) }}
+                                    </span>
+                                    @if($mentor->match_score !== null)
+                                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full">
+                                            {{ $mentor->match_score }}% Match
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                             
                             <div class="mb-4">

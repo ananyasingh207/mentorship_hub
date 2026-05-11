@@ -11,6 +11,9 @@ use App\Http\Controllers\TimeSlotController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StartupDashboardController;
+use App\Http\Controllers\MentorDashboardController;
+use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,7 +23,6 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::get('/messages/{user}', [MessageController::class, 'show'])->name('messages.show');
@@ -33,9 +35,7 @@ Route::middleware(['auth', 'role:startup'])->group(function () {
     Route::post('/startup/profile/store', [StartupProfileController::class, 'store'])->name('startup.profile.store');
 
     Route::middleware('profile.completed')->group(function () {
-        Route::get('/startup/dashboard', function () {
-            return view('startup.dashboard');
-        })->name('startup.dashboard');
+        Route::get('/startup/dashboard', [StartupDashboardController::class, 'index'])->name('startup.dashboard');
 
         Route::get('/mentors', [MentorController::class, 'index'])->name('mentors.index');
         Route::get('/mentors/{mentor}', [MentorController::class, 'show'])->name('mentors.show');
@@ -61,9 +61,7 @@ Route::middleware(['auth', 'role:mentor'])->group(function () {
     Route::post('/mentor/profile/store', [MentorProfileController::class, 'store'])->name('mentor.profile.store');
 
     Route::middleware(['profile.completed', 'mentor.approved'])->group(function () {
-        Route::get('/mentor/dashboard', function () {
-            return view('mentor.dashboard');
-        })->name('mentor.dashboard');
+        Route::get('/mentor/dashboard', [MentorDashboardController::class, 'index'])->name('mentor.dashboard');
 
         Route::get('/mentor/rejected', function () {
             return view('mentor.rejected');
@@ -86,9 +84,7 @@ Route::middleware(['auth', 'role:mentor'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     Route::get('/admin/mentors', [AdminMentorController::class, 'index'])->name('admin.mentors.index');
     Route::patch('/admin/mentors/{mentor}/approve', [AdminMentorController::class, 'approve'])->name('admin.mentors.approve');
