@@ -9,6 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    @if (session('info'))
+                        <div class="mb-6 p-4 text-sm text-blue-800 rounded-lg bg-blue-50 border border-blue-200" role="alert">
+                            <span class="font-medium">Information:</span> {{ session('info') }}
+                        </div>
+                    @endif
+
                     {{ __("You're logged in as a Mentor!") }}
 
                     @if(auth()->user()->mentorProfile)

@@ -27,11 +27,20 @@
                         <x-nav-link :href="route('startup.requests.index')" :active="request()->routeIs('startup.requests.*')">
                             {{ __('My Requests') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('startup.bookings.index')" :active="request()->routeIs('startup.bookings.*')">
+                            {{ __('My Bookings') }}
+                        </x-nav-link>
                     @endif
 
-                    @if(auth()->user()->role === 'mentor' && auth()->user()->mentorProfile()->exists())
+                    @if(auth()->user()->role === 'mentor' && auth()->user()->mentorProfile()->exists() && auth()->user()->mentorProfile->status === 'approved')
                         <x-nav-link :href="route('mentor.requests.index')" :active="request()->routeIs('mentor.requests.*')">
                             {{ __('My Requests') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('mentor.slots.index')" :active="request()->routeIs('mentor.slots.*')">
+                            {{ __('My Slots') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('mentor.bookings.index')" :active="request()->routeIs('mentor.bookings.*')">
+                            {{ __('My Bookings') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -91,11 +100,20 @@
                 <x-responsive-nav-link :href="route('startup.requests.index')" :active="request()->routeIs('startup.requests.*')">
                     {{ __('My Requests') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('startup.bookings.index')" :active="request()->routeIs('startup.bookings.*')">
+                    {{ __('My Bookings') }}
+                </x-responsive-nav-link>
             @endif
 
-            @if(auth()->user()->role === 'mentor' && auth()->user()->mentorProfile()->exists())
+            @if(auth()->user()->role === 'mentor' && auth()->user()->mentorProfile()->exists() && auth()->user()->mentorProfile->status === 'approved')
                 <x-responsive-nav-link :href="route('mentor.requests.index')" :active="request()->routeIs('mentor.requests.*')">
                     {{ __('My Requests') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('mentor.slots.index')" :active="request()->routeIs('mentor.slots.*')">
+                    {{ __('My Slots') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('mentor.bookings.index')" :active="request()->routeIs('mentor.bookings.*')">
+                    {{ __('My Bookings') }}
                 </x-responsive-nav-link>
             @endif
         </div>

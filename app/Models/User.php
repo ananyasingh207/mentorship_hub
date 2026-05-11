@@ -67,4 +67,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(MentorRequest::class, 'mentor_id');
     }
+
+    public function timeSlots()
+    {
+        return $this->hasMany(TimeSlot::class, 'mentor_id');
+    }
+
+    public function startupBookings()
+    {
+        return $this->hasMany(Booking::class, 'startup_id');
+    }
+
+    public function mentorBookings()
+    {
+        return $this->hasMany(Booking::class, 'mentor_id');
+    }
 }

@@ -29,6 +29,34 @@ class MentorController extends Controller
 
         $mentor->load('user');
 
-        return view('mentors.show', compact('mentor'));
+        $hasAcceptedRequest = false;
+        $availableSlots = collect();
+
+        if (auth()->check() && auth()->user()->role === 'startup') {
+            $hasAcceptedRequest = \App\Models\MentorRequest::where('startup_id', auth()->id())
+                ->where('mentor_id', $mentor->user_id)
+                ->where('status', 'accepted')
+                ->exists();
+
+            if ($hasAcceptedRequest) {
+                $today = \Carbon\Carbon::today()->toDateString();
+                $now = \Carbon\Carbon::now()->format('H:i:s');
+
+                $availableSlots = \App\Models\TimeSlot::where('mentor_id', $mentor->user_id)
+                    ->where('is_booked', false)
+                    ->where(function($query) use ($today, $now) {
+                        $query->where('date', '>', $today)
+                              ->orWhere(function($q) use ($today, $now) {
+                                  $q->where('date', '=', $today)
+                                    ->where('start_time', '>', $now);
+                              });
+                    })
+                    ->orderBy('date')
+                    ->orderBy('start_time')
+                    ->get();
+            }
+        }
+
+        return view('mentors.show', compact('mentor', 'hasAcceptedRequest', 'availableSlots'));
     }
 }

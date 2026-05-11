@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminMentorController;
 use App\Http\Controllers\MentorController;
 use App\Http\Controllers\StartupRequestController;
 use App\Http\Controllers\MentorRequestController;
+use App\Http\Controllers\TimeSlotController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +38,10 @@ Route::middleware(['auth', 'role:startup'])->group(function () {
         Route::get('/mentors/{mentor}/request', [StartupRequestController::class, 'create'])->name('startup.requests.create');
         Route::post('/mentors/{mentor}/request', [StartupRequestController::class, 'store'])->name('startup.requests.store');
         Route::get('/startup/requests', [StartupRequestController::class, 'index'])->name('startup.requests.index');
+
+        // Startup Bookings
+        Route::post('/bookings/{slot}', [BookingController::class, 'store'])->name('bookings.store');
+        Route::get('/startup/bookings', [BookingController::class, 'startupIndex'])->name('startup.bookings.index');
     });
 });
 
@@ -43,15 +49,24 @@ Route::middleware(['auth', 'role:mentor'])->group(function () {
     Route::get('/mentor/profile/create', [MentorProfileController::class, 'create'])->name('mentor.profile.create');
     Route::post('/mentor/profile/store', [MentorProfileController::class, 'store'])->name('mentor.profile.store');
 
-    Route::middleware('profile.completed')->group(function () {
+    Route::middleware(['profile.completed', 'mentor.approved'])->group(function () {
         Route::get('/mentor/dashboard', function () {
             return view('mentor.dashboard');
         })->name('mentor.dashboard');
+
+        Route::get('/mentor/rejected', function () {
+            return view('mentor.rejected');
+        })->name('mentor.rejected');
 
         // Mentor Requests
         Route::get('/mentor/requests', [MentorRequestController::class, 'index'])->name('mentor.requests.index');
         Route::patch('/mentor/requests/{mentorRequest}/accept', [MentorRequestController::class, 'accept'])->name('mentor.requests.accept');
         Route::patch('/mentor/requests/{mentorRequest}/reject', [MentorRequestController::class, 'reject'])->name('mentor.requests.reject');
+
+        // Mentor Time Slots & Bookings
+        Route::get('/mentor/slots', [TimeSlotController::class, 'index'])->name('mentor.slots.index');
+        Route::post('/mentor/slots', [TimeSlotController::class, 'store'])->name('mentor.slots.store');
+        Route::get('/mentor/bookings', [BookingController::class, 'mentorIndex'])->name('mentor.bookings.index');
     });
 });
 
