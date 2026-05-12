@@ -9,7 +9,7 @@ Mentorship Hub is a premium, role-based platform designed to connect ambitious s
 - **Backend**: Laravel 12 (PHP 8.2+)
 - **Frontend**: Tailwind CSS, Blade Templates, Vanilla JavaScript
 - **Build Tool**: Vite
-- **Database**: SQLite (default) / MySQL
+- **Database**: MySQL (Primary)
 
 ---
 
@@ -47,10 +47,19 @@ php artisan key:generate
 ```
 
 ### 4. Database Setup
-The project uses SQLite by default. Ensure your `.env` has `DB_CONNECTION=sqlite`.
+The project uses MySQL. Ensure your `.env` is configured with your database credentials:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mentorship_hub
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
 ```bash
-# Create the SQLite database file (if it doesn't exist)
-touch database/database.sqlite
+# Create the database in MySQL (if using CLI)
+mysql -u root -e "CREATE DATABASE mentorship_hub;"
 
 # Run migrations and seed test data
 php artisan migrate --seed
