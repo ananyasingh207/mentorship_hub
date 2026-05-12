@@ -9,6 +9,7 @@ class MentorController extends Controller
 {
     public function index(Request $request)
     {
+        $user = auth()->user();
         $query = MentorProfile::with('user')->where('status', 'approved');
 
         $expertise = trim($request->query('expertise'));
@@ -18,30 +19,45 @@ class MentorController extends Controller
 
         $mentors = $query->latest()->get();
 
+        $connectedMentors = collect();
         $mentorRequests = [];
         $startupProfile = null;
-        if (auth()->check() && auth()->user()->role === 'startup') {
-            $mentorRequests = \App\Models\MentorRequest::where('startup_id', auth()->id())
-                ->pluck('status', 'mentor_id')
+
+        if ($user && $user->role === 'startup') {
+            $startupProfile = $user->startupProfile;
+            
+            // Get mentor IDs from accepted requests
+            $acceptedMentorIds = \App\Models\MentorRequest::where('startup_id', $user->id)
+                ->where('status', 'accepted')
+                ->pluck('mentor_id')
                 ->toArray();
 
-            $startupProfile = auth()->user()->startupProfile;
+            $connectedMentors = MentorProfile::with('user')
+                ->whereIn('user_id', $acceptedMentorIds)
+                ->get();
+
+            $mentorRequests = \App\Models\MentorRequest::where('startup_id', $user->id)
+                ->pluck('status', 'mentor_id')
+                ->toArray();
         }
 
         // Calculate match scores
-        if ($startupProfile) {
-            foreach ($mentors as $mentor) {
-                $mentor->match_score = \App\Services\MentorMatchingService::calculateMatchScore($startupProfile, $mentor);
-            }
-            // Sort by highest match first
-            $mentors = $mentors->sortByDesc('match_score')->values();
-        } else {
-            foreach ($mentors as $mentor) {
-                $mentor->match_score = null;
-            }
+        foreach ($mentors as $mentor) {
+            $mentor->match_score = $startupProfile 
+                ? \App\Services\MentorMatchingService::calculateMatchScore($startupProfile, $mentor)
+                : null;
+            
+            // Calculate review stats
+            $reviews = \App\Models\Review::where('mentor_id', $mentor->user_id)->get();
+            $mentor->avg_rating = $reviews->count() > 0 ? round($reviews->avg('rating'), 1) : 0;
+            $mentor->review_count = $reviews->count();
         }
 
-        return view('mentors.index', compact('mentors', 'mentorRequests'));
+        if ($startupProfile) {
+            $mentors = $mentors->sortByDesc('match_score')->values();
+        }
+
+        return view('mentors.index', compact('mentors', 'mentorRequests', 'connectedMentors'));
     }
 
     public function show(MentorProfile $mentor)

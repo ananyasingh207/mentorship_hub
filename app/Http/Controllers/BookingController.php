@@ -85,7 +85,7 @@ class BookingController extends Controller
             'status' => 'completed',
         ]);
 
-        return redirect()->back()->with('success', 'Booking marked as completed successfully!');
+        return redirect()->route('mentor.slots.index')->with('success', 'Booking marked as completed successfully!');
     }
 
     public function cancel(Booking $booking)

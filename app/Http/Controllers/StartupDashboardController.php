@@ -20,15 +20,39 @@ class StartupDashboardController extends Controller
 
         $recommendedMentors = collect();
         if ($user->startupProfile) {
-            $recommendedMentors = MentorMatchingService::getMatchedMentors($user->startupProfile, 3);
+            $connectedMentorIds = MentorRequest::where('startup_id', $user->id)
+                ->where('status', 'accepted')
+                ->pluck('mentor_id')
+                ->toArray();
+
+            $recommendedMentors = MentorMatchingService::getMatchedMentors($user->startupProfile, 3, $connectedMentorIds);
         }
+
+        $recentSessions = Booking::where('startup_id', $user->id)
+            ->with(['mentor.mentorProfile', 'timeSlot'])
+            ->orderBy(
+                \App\Models\TimeSlot::select('date')
+                    ->whereColumn('id', 'bookings.slot_id')
+                    ->limit(1), 
+                'desc'
+            )
+            ->take(5)
+            ->get();
+
+        $sentRequests = MentorRequest::where('startup_id', $user->id)
+            ->with('mentor.mentorProfile')
+            ->latest()
+            ->take(3)
+            ->get();
 
         return view('startup.dashboard', compact(
             'totalRequests',
             'acceptedMentors',
             'upcomingBookings',
             'completedSessions',
-            'recommendedMentors'
+            'recommendedMentors',
+            'recentSessions',
+            'sentRequests'
         ));
     }
 }

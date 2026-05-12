@@ -60,7 +60,38 @@ class MessageController extends Controller
                   ->where('receiver_id', $currentUser->id);
         })->orderBy('created_at', 'asc')->get();
 
-        return view('messages.show', compact('messages', 'user'));
+        // Fetch contacts for the sidebar
+        if ($currentUser->role === 'startup') {
+            $contacts = User::whereIn('id', function($query) use ($currentUser) {
+                $query->select('mentor_id')
+                      ->from('mentor_requests')
+                      ->where('startup_id', $currentUser->id)
+                      ->where('status', 'accepted');
+            })->get();
+        } else if ($currentUser->role === 'mentor') {
+            $contacts = User::whereIn('id', function($query) use ($currentUser) {
+                $query->select('startup_id')
+                      ->from('mentor_requests')
+                      ->where('mentor_id', $currentUser->id)
+                      ->where('status', 'accepted');
+            })->get();
+        } else {
+            $contacts = collect();
+        }
+
+        foreach ($contacts as $contact) {
+            $contact->latest_message = Message::where(function($query) use ($currentUser, $contact) {
+                $query->where('sender_id', $currentUser->id)->where('receiver_id', $contact->id);
+            })->orWhere(function($query) use ($currentUser, $contact) {
+                $query->where('sender_id', $contact->id)->where('receiver_id', $currentUser->id);
+            })->orderBy('created_at', 'desc')->first();
+        }
+
+        $contacts = $contacts->sortByDesc(function ($contact) {
+            return $contact->latest_message ? $contact->latest_message->created_at : $contact->created_at;
+        });
+
+        return view('messages.show', compact('messages', 'user', 'contacts'));
     }
 
     public function store(Request $request, User $user)

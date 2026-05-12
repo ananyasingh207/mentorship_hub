@@ -11,7 +11,10 @@ class TimeSlotController extends Controller
 {
     public function index()
     {
-        $slots = auth()->user()->timeSlots()
+        $user = auth()->user();
+        
+        $slots = $user->timeSlots()
+            ->with(['booking.startup'])
             ->orderBy('date', 'desc')
             ->orderBy('start_time', 'asc')
             ->get();

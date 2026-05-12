@@ -9,10 +9,15 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    public function create(MentorProfile $mentor)
+    public function create(\App\Models\User $mentor)
     {
         $startupId = auth()->id();
-        $mentorId = $mentor->user_id;
+        $mentorId = $mentor->id;
+        $mentorProfile = $mentor->mentorProfile;
+
+        if (!$mentorProfile) {
+            abort(404, 'Mentor profile not found.');
+        }
 
         $hasCompletedBooking = Booking::where('startup_id', $startupId)
             ->where('mentor_id', $mentorId)
@@ -28,16 +33,17 @@ class ReviewController extends Controller
             ->exists();
 
         if ($existingReview) {
-            return redirect()->route('mentors.show', $mentor)->with('error', 'You have already submitted a review for this mentor.');
+            return redirect()->route('mentors.show', $mentorProfile)->with('error', 'You have already submitted a review for this mentor.');
         }
 
-        return view('reviews.create', compact('mentor'));
+        return view('reviews.create', ['mentor' => $mentorProfile]);
     }
 
-    public function store(Request $request, MentorProfile $mentor)
+    public function store(Request $request, \App\Models\User $mentor)
     {
         $startupId = auth()->id();
-        $mentorId = $mentor->user_id;
+        $mentorId = $mentor->id;
+        $mentorProfile = $mentor->mentorProfile;
 
         $hasCompletedBooking = Booking::where('startup_id', $startupId)
             ->where('mentor_id', $mentorId)
@@ -53,7 +59,7 @@ class ReviewController extends Controller
             ->exists();
 
         if ($existingReview) {
-            return redirect()->route('mentors.show', $mentor)->with('error', 'You have already submitted a review for this mentor.');
+            return redirect()->route('mentors.show', $mentorProfile)->with('error', 'You have already submitted a review for this mentor.');
         }
 
         $request->validate([
@@ -68,7 +74,7 @@ class ReviewController extends Controller
             'review' => $request->review,
         ]);
 
-        return redirect()->route('mentors.show', $mentor)->with('success', 'Review submitted successfully!');
+        return redirect()->route('mentors.show', $mentorProfile)->with('success', 'Review submitted successfully!');
     }
 
     public function mentorIndex()

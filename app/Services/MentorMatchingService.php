@@ -48,10 +48,13 @@ class MentorMatchingService
      * Get mentors sorted by match score for a given startup profile.
      * Returns a collection of mentors with a match_score attribute.
      */
-    public static function getMatchedMentors(StartupProfile $startupProfile, int $limit = 5)
+    public static function getMatchedMentors(StartupProfile $startupProfile, int $limit = 5, array $excludeIds = [])
     {
         $mentors = MentorProfile::with('user')
             ->where('status', 'approved')
+            ->when(!empty($excludeIds), function($query) use ($excludeIds) {
+                return $query->whereNotIn('user_id', $excludeIds);
+            })
             ->get();
 
         foreach ($mentors as $mentor) {
