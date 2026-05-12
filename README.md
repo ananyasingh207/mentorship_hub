@@ -117,8 +117,8 @@ After running `php artisan migrate --seed`, you can use these accounts to explor
 ## 🤝 Contributing
 
 1. Create a feature branch.
-2. Ensure your code follows the premium SaaS design language (2px corners, clean typography).
+2. Ensure your code follows the clean design language.
 3. Submit a Pull Request.
 
 ---
-© {{ date('Y') }} Mentorship Hub. Built with Laravel.
+Mentorship Hub. Built with Laravel.
