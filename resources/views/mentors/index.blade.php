@@ -1,9 +1,6 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Discover Mentors') }}
-        </h2>
-    </x-slot>
+<x-app-layout :hideNav="true">
+    <div class="min-h-screen bg-gray-50/80">
+        <x-startup-navbar />
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -32,9 +29,14 @@
                     <div class="bg-white overflow-hidden shadow-sm rounded-lg border border-gray-100 hover:shadow-md transition-shadow">
                         <div class="p-6">
                             <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-lg font-bold text-gray-900">{{ $mentor->user->name }}</h3>
-                                    <p class="text-sm text-gray-500">Joined {{ $mentor->created_at->diffForHumans() }}</p>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-sm bg-teal-500 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+                                        {{ strtoupper(substr($mentor->user->name, 0, 1)) }}
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-900 leading-tight">{{ $mentor->user->name }}</h3>
+                                        <p class="text-xs text-gray-400 mt-0.5">Joined {{ $mentor->created_at->format('M Y') }}</p>
+                                    </div>
                                 </div>
                                 <div class="flex flex-col items-end space-y-1">
                                     <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">

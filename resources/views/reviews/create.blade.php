@@ -1,9 +1,6 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Write a Review for ') . $mentor->user->name }}
-        </h2>
-    </x-slot>
+<x-app-layout :hideNav="true">
+    <div class="min-h-screen bg-gray-50/80">
+        <x-startup-navbar />
 
     <div class="py-12">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">

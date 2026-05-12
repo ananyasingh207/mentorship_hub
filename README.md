@@ -1,59 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mentorship Hub 🚀
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Mentorship Hub is a premium, role-based platform designed to connect ambitious startup founders with industry-leading mentors. It features a modern SaaS interface, real-time messaging, and a robust session booking system.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Backend**: Laravel 12 (PHP 8.2+)
+- **Frontend**: Tailwind CSS, Blade Templates, Vanilla JavaScript
+- **Build Tool**: Vite
+- **Database**: SQLite (default) / MySQL
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🚀 Getting Started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Follow these steps to set up the project on your local machine.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Prerequisites
+Ensure you have the following installed:
+- [PHP 8.2+](https://www.php.net/downloads)
+- [Composer](https://getcomposer.org/)
+- [Node.js & NPM](https://nodejs.org/)
 
-## Laravel Sponsors
+### 2. Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+# Clone the repository
+git clone <repository-url>
+cd mentorship-hub
 
-### Premium Partners
+# Install PHP dependencies
+composer install
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Install Frontend dependencies
+npm install
+```
 
-## Contributing
+### 3. Environment Setup
+```bash
+# Copy environment file
+cp .env.example .env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Generate application key
+php artisan key:generate
+```
 
-## Code of Conduct
+### 4. Database Setup
+The project uses SQLite by default. Ensure your `.env` has `DB_CONNECTION=sqlite`.
+```bash
+# Create the SQLite database file (if it doesn't exist)
+touch database/database.sqlite
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Run migrations and seed test data
+php artisan migrate --seed
+```
 
-## Security Vulnerabilities
+### 5. Running the Application
+You need to run two processes simultaneously:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Terminal 1: Vite (Assets)**
+```bash
+npm run dev
+```
 
-## License
+**Terminal 2: PHP Server**
+```bash
+php artisan serve
+```
+The application will be available at `http://127.0.0.1:8000`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🔐 Test Credentials
+
+After running `php artisan migrate --seed`, you can use these accounts to explore the platform:
+
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Admin** | `admin@test.com` | `password` |
+| **Test User** | `test@example.com` | `password` |
+
+*Note: You can register as a **Startup** or **Mentor** directly from the landing page.*
+
+---
+
+## ✨ Key Features
+
+- **Dynamic Dashboards**: Tailored experiences for Admins, Startups, and Mentors.
+- **SaaS Navigation**: Premium, role-aware navbar with intuitive shortcuts.
+- **Booking System**: Real-time time slot management and session booking.
+- **Direct Messaging**: Built-in secure chat between mentors and founders.
+- **Discovery Grid**: Filter and find approved mentors with ease.
+- **Review System**: Rate and review mentors after successful sessions.
+
+---
+
+## 📁 Project Structure
+
+- `resources/views/components/`: Reusable SaaS UI components (navbars, etc.)
+- `app/Http/Controllers/`: Role-specific logic (Admin, Startup, Mentor)
+- `app/Http/Middleware/`: Security layers for role-based access and profile completion.
+- `routes/web.php`: Organized role-restricted route groups.
+
+---
+
+## 🤝 Contributing
+
+1. Create a feature branch.
+2. Ensure your code follows the premium SaaS design language (2px corners, clean typography).
+3. Submit a Pull Request.
+
+---
+© {{ date('Y') }} Mentorship Hub. Built with Laravel.

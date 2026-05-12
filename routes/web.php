@@ -86,6 +86,7 @@ Route::middleware(['auth', 'role:mentor'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
+    Route::get('/admin/users', [AdminDashboardController::class, 'users'])->name('admin.users.index');
     Route::get('/admin/mentors', [AdminMentorController::class, 'index'])->name('admin.mentors.index');
     Route::patch('/admin/mentors/{mentor}/approve', [AdminMentorController::class, 'approve'])->name('admin.mentors.approve');
     Route::patch('/admin/mentors/{mentor}/reject', [AdminMentorController::class, 'reject'])->name('admin.mentors.reject');

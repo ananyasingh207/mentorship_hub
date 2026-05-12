@@ -12,7 +12,7 @@ class AdminMentorController extends Controller
         $mentors = MentorProfile::with('user')
             ->orderByRaw("status = 'pending' DESC")
             ->latest()
-            ->get();
+            ->paginate(10);
             
         return view('admin.mentors.index', compact('mentors'));
     }
