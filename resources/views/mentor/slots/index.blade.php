@@ -32,17 +32,26 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
                             <div>
                                 <label for="date" class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Date</label>
-                                <input type="date" id="date" name="date" class="w-full bg-gray-50 border-gray-200 rounded-[2px] text-sm px-4 py-3 focus:border-[#006B52] focus:ring-[#006B52] transition-colors" value="{{ old('date') }}" required>
+                                <input type="date" id="date" name="date" class="w-full bg-gray-50 {{ $errors->has('date') ? 'border-red-500' : 'border-gray-200' }} rounded-[2px] text-sm px-4 py-3 focus:border-[#006B52] focus:ring-[#006B52] transition-colors" value="{{ old('date') }}" required>
+                                @error('date')
+                                    <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p>
+                                @enderror
                             </div>
                             
                             <div>
                                 <label for="start_time" class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">Start Time</label>
-                                <input type="time" id="start_time" name="start_time" class="w-full bg-gray-50 border-gray-200 rounded-[2px] text-sm px-4 py-3 focus:border-[#006B52] focus:ring-[#006B52] transition-colors" value="{{ old('start_time') }}" required>
+                                <input type="time" id="start_time" name="start_time" class="w-full bg-gray-50 {{ $errors->has('start_time') ? 'border-red-500' : 'border-gray-200' }} rounded-[2px] text-sm px-4 py-3 focus:border-[#006B52] focus:ring-[#006B52] transition-colors" value="{{ old('start_time') }}" required>
+                                @error('start_time')
+                                    <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>
                                 <label for="end_time" class="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2">End Time</label>
-                                <input type="time" id="end_time" name="end_time" class="w-full bg-gray-50 border-gray-200 rounded-[2px] text-sm px-4 py-3 focus:border-[#006B52] focus:ring-[#006B52] transition-colors" value="{{ old('end_time') }}" required>
+                                <input type="time" id="end_time" name="end_time" class="w-full bg-gray-50 {{ $errors->has('end_time') ? 'border-red-500' : 'border-gray-200' }} rounded-[2px] text-sm px-4 py-3 focus:border-[#006B52] focus:ring-[#006B52] transition-colors" value="{{ old('end_time') }}" required>
+                                @error('end_time')
+                                    <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
 

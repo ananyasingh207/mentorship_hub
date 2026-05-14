@@ -17,8 +17,6 @@ class MentorController extends Controller
             $query->where('expertise', 'like', "%{$expertise}%");
         }
 
-        $mentors = $query->latest()->get();
-
         $connectedMentors = collect();
         $mentorRequests = [];
         $startupProfile = null;
@@ -39,7 +37,18 @@ class MentorController extends Controller
             $mentorRequests = \App\Models\MentorRequest::where('startup_id', $user->id)
                 ->pluck('status', 'mentor_id')
                 ->toArray();
+
+            // Exclude mentors that the startup has already connected with or been rejected by
+            $excludeMentorIds = array_keys(array_filter($mentorRequests, function($status) {
+                return $status === 'accepted' || $status === 'rejected';
+            }));
+            
+            if (!empty($excludeMentorIds)) {
+                $query->whereNotIn('user_id', $excludeMentorIds);
+            }
         }
+
+        $mentors = $query->latest()->get();
 
         // Calculate match scores
         foreach ($mentors as $mentor) {

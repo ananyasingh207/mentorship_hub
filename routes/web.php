@@ -44,6 +44,8 @@ Route::middleware(['auth', 'role:startup'])->group(function () {
         Route::get('/mentors/{mentor}/request', [StartupRequestController::class, 'create'])->name('startup.requests.create');
         Route::post('/mentors/{mentor}/request', [StartupRequestController::class, 'store'])->name('startup.requests.store');
         Route::get('/startup/requests', [StartupRequestController::class, 'index'])->name('startup.requests.index');
+        Route::delete('/startup/requests/{mentorRequest}', [StartupRequestController::class, 'destroy'])->name('startup.requests.destroy');
+
 
         // Startup Bookings
         Route::post('/bookings/{slot}', [BookingController::class, 'store'])->name('bookings.store');

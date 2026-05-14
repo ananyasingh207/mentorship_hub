@@ -55,4 +55,16 @@ class StartupRequestController extends Controller
 
         return redirect()->route('startup.requests.index')->with('success', 'Mentorship request sent successfully.');
     }
+
+    public function destroy(MentorRequest $mentorRequest)
+    {
+        // Ensure the request belongs to the authenticated startup
+        if ($mentorRequest->startup_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $mentorRequest->delete();
+
+        return redirect()->route('startup.requests.index')->with('success', 'Mentorship request withdrawn successfully.');
+    }
 }

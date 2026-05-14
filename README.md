@@ -1,124 +1,129 @@
-# Mentorship Hub 🚀
+# Mentorship Hub
 
-Mentorship Hub is a premium, role-based platform designed to connect ambitious startup founders with industry-leading mentors. It features a modern SaaS interface, real-time messaging, and a robust session booking system.
+Mentorship Hub is a comprehensive platform built with Laravel 12 that connects early-stage startups with experienced mentors. The platform facilitates meaningful mentorship connections through smart matching, direct communication, and a robust scheduling system.
+
+## 🌟 Key Features
+
+### Role-Based Architecture
+- **Startups**: Can browse mentors, send mentorship requests, book time slots, and review sessions.
+- **Mentors**: Can manage their availability, accept/reject requests from startups, and track their mentorship impact.
+- **Admins**: Can moderate the platform by approving or rejecting newly registered mentor profiles.
+
+### 🔍 Smart Discovery & Matching
+- **Mentor Directory**: Startups can browse an directory of verified mentors, complete with filters for specific expertise areas.
+- **Match Score Algorithm**: Automatically calculates a compatibility percentage between a startup's industry and a mentor's expertise to highlight the best fits.
+
+### 📅 Booking & Scheduling System
+- **Availability Management**: Mentors can create custom availability slots on their dashboard.
+- **Conflict Prevention**: Built-in validation prevents double-booking and overlapping time slots.
+- **Session Tracking**: Track upcoming sessions and mark them as completed. Mentors have full control to cancel or finalize sessions.
+
+### 🤝 Mentorship Requests
+- **Request Flow**: Startups must send a request with a tailored message before booking sessions.
+- **Status Tracking**: Requests go through a `pending`, `accepted`, or `rejected` lifecycle. Startups can even withdraw requests if needed.
+
+### 💬 Direct Messaging
+- Private messaging system allowing approved startups and mentors to communicate seamlessly before and after sessions.
+
+### ⭐ Reviews & Ratings
+- After a completed session, startups can leave a 1-5 star rating and written review for the mentor.
+- Mentors accumulate verified reviews, which build their reputation and display directly on their public profile.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
 - **Backend**: Laravel 12 (PHP 8.2+)
-- **Frontend**: Tailwind CSS, Blade Templates, Vanilla JavaScript
-- **Build Tool**: Vite
-- **Database**: MySQL (Primary)
+- **Frontend**: Blade Templates, Tailwind CSS
+- **Authentication**: Laravel Breeze
+- **Database**: SQLite (default, easily configurable to MySQL/PostgreSQL)
 
 ---
 
 ## 🚀 Getting Started
 
-Follow these steps to set up the project on your local machine.
+Follow these steps to set up the project locally for development.
 
-### 1. Prerequisites
-Ensure you have the following installed:
-- [PHP 8.2+](https://www.php.net/downloads)
-- [Composer](https://getcomposer.org/)
-- [Node.js & NPM](https://nodejs.org/)
+### Prerequisites
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- Git
 
-### 2. Installation
+### Installation
 
-```bash
-# Clone the repository
-git clone <repository-url>
-cd mentorship-hub
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd mentorship-hub
+   ```
 
-# Install PHP dependencies
-composer install
+2. **Install dependencies**
+   Install both PHP and Node dependencies:
+   ```bash
+   composer install
+   npm install
+   ```
 
-# Install Frontend dependencies
-npm install
-```
+3. **Environment Setup**
+   Copy the example `.env` file and generate your application key:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-### 3. Environment Setup
-```bash
-# Copy environment file
-cp .env.example .env
+4. **Database Configuration (MySQL)**
+   Open the `.env` file and update the database settings to match your local MySQL configuration:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=mentorship_hub
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
-# Generate application key
-php artisan key:generate
-```
+5. **Migrate and Seed the Database**
+   Run the migrations to create the tables, and seed the database to generate the default admin account:
+   ```bash
+   php artisan migrate --seed
+   ```
 
-### 4. Database Setup
-The project uses MySQL. Ensure your `.env` is configured with your database credentials:
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=mentorship_hub
-DB_USERNAME=root
-DB_PASSWORD=
-```
+6. **Compile Frontend Assets**
+   Build the Tailwind CSS and Vite assets:
+   ```bash
+   npm run build
+   # (For active development, you can use: npm run dev)
+   ```
 
-```bash
-# Create the database in MySQL (if using CLI)
-mysql -u root -e "CREATE DATABASE mentorship_hub;"
-
-# Run migrations and seed test data
-php artisan migrate --seed
-```
-
-### 5. Running the Application
-You need to run two processes simultaneously:
-
-**Terminal 1: Vite (Assets)**
-```bash
-npm run dev
-```
-
-**Terminal 2: PHP Server**
-```bash
-php artisan serve
-```
-The application will be available at `http://127.0.0.1:8000`.
+7. **Run the Development Server**
+   Start the Laravel local server:
+   ```bash
+   php artisan serve
+   ```
+   You can now access the application at `http://localhost:8000`.
 
 ---
 
-## 🔐 Test Credentials
+## 👥 Usage Guide
 
-After running `php artisan migrate --seed`, you can use these accounts to explore the platform:
+### Creating Accounts
+- You can register a new account and choose whether you are a **Startup** or a **Mentor**.
+- Note: New mentors will be placed in a `pending` state and must be approved by an Admin before they appear in the discovery list.
 
-| Role | Email | Password |
-| :--- | :--- | :--- |
-| **Admin** | `admin@test.com` | `password` |
-| **Test User** | `test@example.com` | `password` |
+### Accessing the Admin Panel
+To test the admin features (like approving mentors), you can log in with the default admin account created by the database seeder:
+- **Email**: `admin@test.com`
+- **Password**: `password`
 
-*Note: You can register as a **Startup** or **Mentor** directly from the landing page.*
+### Typical Workflow
+1. **Mentor** registers, fills out their profile (expertise, bio), and waits for approval.
+2. **Admin** logs in, reviews the mentor, and clicks "Approve".
+3. **Mentor** logs in and adds open Time Slots to their calendar.
+4. **Startup** registers, completes their profile, and navigates to "Discover Mentors".
+5. **Startup** sends a Mentorship Request to a mentor.
+6. **Mentor** reviews the incoming request and clicks "Accept".
+7. **Startup** navigates to the mentor's profile and books an available Time Slot.
+8. **Mentor** conducts the session and clicks "Complete" on their dashboard.
+9. **Startup** leaves a 5-star review for the mentor!
 
----
-
-## ✨ Key Features
-
-- **Dynamic Dashboards**: Tailored experiences for Admins, Startups, and Mentors.
-- **SaaS Navigation**: Premium, role-aware navbar with intuitive shortcuts.
-- **Booking System**: Real-time time slot management and session booking.
-- **Direct Messaging**: Built-in secure chat between mentors and founders.
-- **Discovery Grid**: Filter and find approved mentors with ease.
-- **Review System**: Rate and review mentors after successful sessions.
-
----
-
-## 📁 Project Structure
-
-- `resources/views/components/`: Reusable SaaS UI components (navbars, etc.)
-- `app/Http/Controllers/`: Role-specific logic (Admin, Startup, Mentor)
-- `app/Http/Middleware/`: Security layers for role-based access and profile completion.
-- `routes/web.php`: Organized role-restricted route groups.
-
----
-
-## 🤝 Contributing
-
-1. Create a feature branch.
-2. Ensure your code follows the clean design language.
-3. Submit a Pull Request.
-
----
-Mentorship Hub. Built with Laravel.

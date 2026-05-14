@@ -56,52 +56,7 @@
             border-bottom: 1px solid rgba(15, 23, 42, 0.07);
         }
 
-        /* ── Ticker ── */
-        .ticker-wrap {
-            overflow: hidden;
-            background: var(--slate-950);
-            padding: 10px 0;
-        }
 
-        .ticker-track {
-            display: flex;
-            width: max-content;
-            animation: ticker 28s linear infinite;
-        }
-
-        .ticker-track:hover {
-            animation-play-state: paused;
-        }
-
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 0 32px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.65);
-            letter-spacing: 0.05em;
-            white-space: nowrap;
-        }
-
-        .ticker-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--teal-light);
-            flex-shrink: 0;
-        }
-
-        @keyframes ticker {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
 
         /* ── Hero ── */
         .hero {
@@ -707,76 +662,284 @@
             width: 0;
             transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        .card-glow-bg {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(13, 148, 136, 0.18) 0%, transparent 65%);
+            top: -120px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        .card-glow-bg-2 {
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(13, 148, 136, 0.09) 0%, transparent 70%);
+            bottom: -80px;
+            left: -40px;
+            pointer-events: none;
+        }
+
+        .featured-mentor-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 28px 24px 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .featured-mentor-card.card-hovered {
+            transform: translateY(-8px) scale(1.015);
+            border-color: rgba(13, 148, 136, 0.55);
+            box-shadow:
+                0 0 0 1px rgba(13, 148, 136, 0.2),
+                0 32px 64px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(13, 148, 136, 0.15);
+        }
+
+        .fmc-inner-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(13, 148, 136, 0.12) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            border-radius: 18px;
+        }
+
+        .featured-mentor-card.card-hovered .fmc-inner-glow {
+            opacity: 1;
+        }
+
+        .fmc-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .fmc-avatar {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0D9488, #14B8A6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            font-size: 17px;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.3);
+            position: relative;
+        }
+
+        .fmc-online {
+            position: absolute;
+            bottom: 1px;
+            right: 1px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #22C55E;
+            border: 2px solid #1E293B;
+        }
+
+        .fmc-name {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: white;
+            margin: 0 0 5px;
+            letter-spacing: -0.01em;
+        }
+
+        .fmc-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .fmc-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .fmc-star {
+            color: #FBBF24;
+            font-size: 12px;
+        }
+
+        .fmc-rating {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .fmc-sep {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 10px;
+        }
+
+        .fmc-match {
+            font-size: 11px;
+            font-weight: 700;
+            color: #5EEAD4;
+            background: rgba(13, 148, 136, 0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.04em;
+        }
+
+        .fmc-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.07);
+            margin: 0 0 16px;
+        }
+
+        .fmc-bio {
+            font-size: 13px;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.55);
+            margin: 0 0 18px;
+            font-style: italic;
+        }
+
+        .fmc-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .fmc-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(13, 148, 136, 0.18);
+            color: #5EEAD4;
+            border: 1px solid rgba(13, 148, 136, 0.25);
+        }
+
+        .fmc-btn {
+            width: 100%;
+            padding: 13px 0;
+            background: #0D9488;
+            color: white;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+
+        .featured-mentor-card.card-hovered .fmc-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fmc-btn.btn-clicked {
+            background: #065F46;
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.35);
+        }
+
+        /* Animated cursor */
+        .hero-cursor {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            pointer-events: none;
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.3s;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+        }
+
+        .hero-cursor.cur-visible {
+            opacity: 1;
+        }
+
+        /* Ripple on click */
+        .hero-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(13, 148, 136, 0.35);
+            transform: scale(0);
+            animation: heroRipple 0.6s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes heroRipple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Toast */
+        .hero-toast {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(13, 148, 136, 0.96);
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 30;
+            pointer-events: none;
+        }
+
+        .hero-toast.toast-show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 
 <body class="antialiased text-slate-900 overflow-x-hidden">
 
 
-    {{-- Live Ticker --}}
-    <div class="ticker-wrap">
-        <div class="ticker-track" id="ticker">
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Arjun S. just booked a Product Strategy session
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Priya M. connected with a Fundraising mentor
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>60,000+ sessions completed on platform
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>New mentor: Growth Marketing · YC Alumni
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Rahul K. rated his session 5 stars
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Verified mentors across 40+ categories
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Ananya T. landed ₹2Cr seed after mentorship
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>750+ vetted mentors available now
-            </div>
-            {{-- Duplicate for seamless loop --}}
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Arjun S. just booked a Product Strategy session
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Priya M. connected with a Fundraising mentor
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>60,000+ sessions completed on platform
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>New mentor: Growth Marketing · YC Alumni
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Rahul K. rated his session 5 stars
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Verified mentors across 40+ categories
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>Ananya T. landed ₹2Cr seed after mentorship
-            </div>
-            <div class="ticker-item">
-                <div class="ticker-dot"></div>750+ vetted mentors available now
-            </div>
-        </div>
-    </div>
+
 
     {{-- Navbar --}}
     <nav>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center gap-3">
+        <div class="px-4 sm:px-6 lg:px-[80px]">
+            <div class="flex justify-between items-center h-24">
+                <div class="flex items-center gap-4">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="Mentorship Hub"
-                        class="w-10 h-10 object-contain">
+                        class="w-14 h-14 object-contain">
                     <div>
-                        <h1 class="text-base font-extrabold tracking-tight text-slate-900"
+                        <h1 class="text-xl font-extrabold tracking-tight text-slate-900"
                             style="font-family:'Bricolage Grotesque',sans-serif">Mentorship Hub</h1>
                     </div>
                 </div>
@@ -830,7 +993,7 @@
             </h1>
 
             <p class="hero-sub reveal delay-2">
-                Book a 1:1 call with a vetted mentor in minutes. Not courses. Not content.
+                Book a 1:1 session with a vetted mentor in minutes. Not courses. Not content.
                 A real conversation with someone who's already solved what you're stuck on.
             </p>
 
@@ -849,96 +1012,75 @@
 
         {{-- Right --}}
         <div class="hero-right">
-            <div class="hero-right-inner">
+            <div class="hero-right-inner" id="heroRightScene">
+
+                {{-- Ambient glows --}}
+                <div class="card-glow-bg"></div>
+                <div class="card-glow-bg-2"></div>
+
                 <p
-                    style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px">
-                    Available now</p>
+                    style="font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:16px;position:relative;z-index:2">
+                    Featured Mentor
+                </p>
 
-                <div class="mentor-card" style="transition-delay:0.3s">
-                    <div class="mentor-avatar" style="background:linear-gradient(135deg,#0D9488,#14B8A6)">RS</div>
-                    <div>
-                        <p
-                            style="color:white;font-weight:600;font-size:0.95rem;font-family:'Bricolage Grotesque',sans-serif">
-                            Ritu Sharma</p>
-                        <p style="color:rgba(255,255,255,0.45);font-size:0.78rem">Ex-VentureSync · Product Strategy</p>
-                        <div class="mentor-tag">Fundraising</div>
-                    </div>
-                    <div class="online-dot"></div>
-                </div>
+                {{-- The featured card --}}
+                <div class="featured-mentor-card" id="featuredCard" style="position:relative;z-index:2">
+                    <div class="fmc-inner-glow"></div>
 
-                <div class="mentor-card" style="transition-delay:0.5s">
-                    <div class="mentor-avatar" style="background:linear-gradient(135deg,#1E40AF,#3B82F6)">AK</div>
-                    <div>
-                        <p
-                            style="color:white;font-weight:600;font-size:0.95rem;font-family:'Bricolage Grotesque',sans-serif">
-                            Aman Kapoor</p>
-                        <p style="color:rgba(255,255,255,0.45);font-size:0.78rem">Nexus Lab W22 · Growth Hacking</p>
-                        <div class="mentor-tag">GTM</div>
-                    </div>
-                    <div class="online-dot"></div>
-                </div>
-
-                <div class="mentor-card" style="transition-delay:0.7s">
-                    <div class="mentor-avatar" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">NM</div>
-                    <div>
-                        <p
-                            style="color:white;font-weight:600;font-size:0.95rem;font-family:'Bricolage Grotesque',sans-serif">
-                            Neha Menon</p>
-                        <p style="color:rgba(255,255,255,0.45);font-size:0.78rem">VP Marketing · B2B SaaS</p>
-                        <div class="mentor-tag">Marketing</div>
-                    </div>
-                    <div class="online-dot"></div>
-                </div>
-
-                <div class="mentor-card" style="transition-delay:0.9s">
-                    <div class="mentor-avatar" style="background:linear-gradient(135deg,#B45309,#F59E0B)">VP</div>
-                    <div>
-                        <p
-                            style="color:white;font-weight:600;font-size:0.95rem;font-family:'Bricolage Grotesque',sans-serif">
-                            Vikram Pillai</p>
-                        <p style="color:rgba(255,255,255,0.45);font-size:0.78rem">2× Founder · Operations</p>
-                        <div class="mentor-tag">Scaling</div>
-                    </div>
-                    <div class="online-dot"></div>
-                </div>
-
-                <div class="mentor-card" style="transition-delay:1.1s">
-                    <div class="mentor-avatar" style="background:linear-gradient(135deg,#0D9488,#065F46)">DJ</div>
-                    <div>
-                        <p
-                            style="color:white;font-weight:600;font-size:0.95rem;font-family:'Bricolage Grotesque',sans-serif">
-                            Deepa Joshi</p>
-                        <p style="color:rgba(255,255,255,0.45);font-size:0.78rem">Angel Investor · M&A</p>
-                        <div class="mentor-tag">Investment</div>
-                    </div>
-                    <div class="online-dot"></div>
-                </div>
-
-                {{-- Progress snapshot --}}
-                <div
-                    style="margin-top:8px;padding:18px 20px;background:rgba(13,148,136,0.12);border:1px solid rgba(13,148,136,0.25);border-radius:12px">
-                    <p
-                        style="color:rgba(255,255,255,0.5);font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px">
-                        Your growth roadmap</p>
-                    <div style="margin-bottom:12px">
-                        <div
-                            style="display:flex;justify-content:space-between;font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:6px">
-                            <span>Product-Market Fit</span><span>78%</span>
+                    <div class="fmc-top">
+                        <div class="fmc-avatar">
+                            M
+                            <div class="fmc-online"></div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" data-width="78"></div>
+                        <div>
+                            <p class="fmc-name">Mentor</p>
+                            <div class="fmc-meta">
+                                <div class="fmc-stars">
+                                    <span class="fmc-star">★</span>
+                                    <span class="fmc-star">★</span>
+                                    <span class="fmc-star">★</span>
+                                    <span class="fmc-star">★</span>
+                                    <span class="fmc-star">★</span>
+                                </div>
+                                <span class="fmc-rating">4.8</span>
+                                <span class="fmc-sep">•</span>
+                                <span class="fmc-rating">5 reviews</span>
+                                <span class="fmc-sep">•</span>
+                                <span class="fmc-match">100% Match</span>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <div
-                            style="display:flex;justify-content:space-between;font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:6px">
-                            <span>Fundraising Readiness</span><span>55%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" data-width="55" style="transition-delay:0.3s"></div>
-                        </div>
+
+                    <div class="fmc-divider"></div>
+
+                    <p class="fmc-bio">
+                        "Experienced professional with expertise in Finance. Focused on helping individuals and teams
+                        grow through guidance, strategy, and real world insights."
+                    </p>
+
+                    <div class="fmc-tags">
+                        <span class="fmc-tag">Finance</span>
                     </div>
+
+                    <button class="fmc-btn" id="fmcBtn">
+                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"
+                            viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        Request Mentorship
+                    </button>
                 </div>
+
+                {{-- Animated cursor --}}
+                <svg class="hero-cursor" id="heroCursor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="4,2 4,20 8,16 12,22 14,21 10,15 16,15" fill="white" stroke="#0D9488"
+                        stroke-width="1.2" stroke-linejoin="round" />
+                </svg>
+
+                {{-- Success toast --}}
+                <div class="hero-toast" id="heroToast">✓ Request sent! Your mentor will confirm shortly.</div>
+
             </div>
         </div>
 
@@ -998,7 +1140,7 @@
                     </h2>
                     <p class="mt-5 text-slate-500 max-w-xl leading-relaxed">
                         Everything you need to discover the right mentor, schedule sessions, and grow with expert
-                        guidance — not guesswork.
+                        guidance, not guesswork.
                     </p>
                 </div>
             </div>
@@ -1016,8 +1158,8 @@
                     <h3
                         style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:12px">
                         Verified Mentors</h3>
-                    <p class="text-slate-500 leading-relaxed text-sm">We reject 95% of applicants. Every mentor is
-                        personally vetted — real experience, real results, no fluff. You get a thinking partner, not a
+                    <p class="text-slate-500 leading-relaxed text-sm">We verify all mentors. Every mentor is
+                        personally vetted, real experience, real results, no fluff. You get a thinking partner, not a
                         coach with a course.</p>
                 </div>
 
@@ -1032,9 +1174,8 @@
                     <h3
                         style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:12px">
                         Smart Scheduling</h3>
-                    <p class="text-slate-500 leading-relaxed text-sm">Book a session in under 2 minutes. View real-time
-                        availability, choose your time zone, and get instant confirmations — no back-and-forth email
-                        chains.</p>
+                    <p class="text-slate-500 leading-relaxed text-sm">Book a session in under 2 minutes. View real time
+                        availability, schedule instantly, and get confirmed without endless back and forth emails.</p>
                 </div>
 
                 <div class="feature-item reveal delay-2" style="border-top:none">
@@ -1049,7 +1190,7 @@
                         style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:12px">
                         Meaningful Conversations</h3>
                     <p class="text-slate-500 leading-relaxed text-sm">Not advice. A real dialogue. Mentors who have been
-                        where you are, guide you through structured sessions built for long-term collaboration.</p>
+                        where you are, guide you through structured sessions built for long term collaboration.</p>
                 </div>
 
                 <div class="feature-item reveal delay-3" style="border-top:none;border-left:none">
@@ -1224,6 +1365,131 @@
         }, 1200);
     </script>
 
+    <script id="hero-right-animation-script">
+        (function () {
+            const scene = document.getElementById('heroRightScene');
+            const card = document.getElementById('featuredCard');
+            const cursor = document.getElementById('heroCursor');
+            const btn = document.getElementById('fmcBtn');
+            const toast = document.getElementById('heroToast');
+            let running = false;
+
+            function getBoundingRelative(el) {
+                const sr = scene.getBoundingClientRect();
+                const er = el.getBoundingClientRect();
+                return {
+                    x: er.left - sr.left,
+                    y: er.top - sr.top,
+                    w: er.width,
+                    h: er.height
+                };
+            }
+
+            function setCursor(x, y) {
+                cursor.style.left = x + 'px';
+                cursor.style.top = y + 'px';
+            }
+
+            function easeInOut(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+            function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+
+            function tweenCursor(fromX, fromY, toX, toY, duration, easeFn, done) {
+                let start = null;
+                function step(ts) {
+                    if (!start) start = ts;
+                    const progress = Math.min((ts - start) / duration, 1);
+                    const e = easeFn(progress);
+                    setCursor(fromX + (toX - fromX) * e, fromY + (toY - fromY) * e);
+                    if (progress < 1) requestAnimationFrame(step);
+                    else done();
+                }
+                requestAnimationFrame(step);
+            }
+
+            function spawnRipple(cx, cy) {
+                const size = 40;
+                const rip = document.createElement('div');
+                rip.className = 'hero-ripple';
+                rip.style.width = size + 'px';
+                rip.style.height = size + 'px';
+                rip.style.left = (cx - size / 2) + 'px';
+                rip.style.top = (cy - size / 2) + 'px';
+                scene.appendChild(rip);
+                setTimeout(() => rip.remove(), 700);
+            }
+
+            function reset() {
+                if (!card) return;
+                card.classList.remove('card-hovered');
+                btn.classList.remove('btn-clicked');
+                toast.classList.remove('toast-show');
+                cursor.classList.remove('cur-visible');
+                cursor.style.transform = '';
+                running = false;
+            }
+
+            function runSequence() {
+                if (running || !scene || !card) return;
+                running = true;
+
+                const sr = scene.getBoundingClientRect();
+                const startX = sr.width * 0.05;
+                const startY = sr.height * 0.9;
+
+                setCursor(startX, startY);
+                cursor.classList.add('cur-visible');
+
+                // 1. Move cursor toward the card centre
+                setTimeout(() => {
+                    const c = getBoundingRelative(card);
+                    const targetX = c.x + c.w * 0.55;
+                    const targetY = c.y + c.h * 0.42;
+
+                    tweenCursor(startX, startY, targetX, targetY, 950, easeInOut, () => {
+                        // 2. Hover the card
+                        card.classList.add('card-hovered');
+
+                        // 3. Move cursor to the button
+                        setTimeout(() => {
+                            const b = getBoundingRelative(btn);
+                            const btnX = b.x + b.w * 0.5;
+                            const btnY = b.y + b.h * 0.5;
+                            const curX = parseFloat(cursor.style.left);
+                            const curY = parseFloat(cursor.style.top);
+
+                            tweenCursor(curX, curY, btnX, btnY, 550, easeOut, () => {
+                                // 4. Click
+                                cursor.style.transform = 'scale(0.78)';
+                                btn.classList.add('btn-clicked');
+                                spawnRipple(btnX, btnY);
+
+                                setTimeout(() => {
+                                    cursor.style.transform = '';
+                                    toast.classList.add('toast-show');
+                                }, 180);
+
+                                // 5. Reset and loop
+                                setTimeout(() => {
+                                    toast.classList.remove('toast-show');
+                                    setTimeout(() => {
+                                        reset();
+                                        setTimeout(runSequence, 1200);
+                                    }, 400);
+                                }, 2800);
+                            });
+                        }, 900);
+                    });
+                }, 400);
+            }
+
+            // Kick off after page load
+            if (document.readyState === 'complete') {
+                setTimeout(runSequence, 800);
+            } else {
+                window.addEventListener('load', () => setTimeout(runSequence, 800));
+            }
+        })();
+    </script>
 </body>
 
 </html>

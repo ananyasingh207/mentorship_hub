@@ -66,12 +66,23 @@
                                         </div>
                                     </div>
 
-                                    @if($request->status === 'accepted')
-                                        <a href="{{ route('messages.show', $request->mentor_id) }}" class="flex items-center gap-2 px-5 py-2 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-[2px] hover:bg-indigo-100 transition-all uppercase tracking-widest">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                                            Message
-                                        </a>
-                                    @endif
+                                    <div class="flex items-center gap-3">
+                                        @if($request->status === 'accepted')
+                                            <a href="{{ route('messages.show', $request->mentor_id) }}" class="flex items-center gap-2 px-5 py-2 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-[2px] hover:bg-indigo-100 transition-all uppercase tracking-widest">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                                                Message
+                                            </a>
+                                        @endif
+
+                                        <form action="{{ route('startup.requests.destroy', $request) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to {{ $request->status === 'pending' ? 'withdraw' : 'remove' }} this request?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="flex items-center gap-2 px-5 py-2 bg-red-50 text-red-600 text-[10px] font-bold rounded-[2px] hover:bg-red-100 transition-all uppercase tracking-widest">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                {{ $request->status === 'pending' ? 'Withdraw' : 'Remove' }}
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
