@@ -154,14 +154,14 @@
                                 <div class="flex items-center gap-3 mt-auto">
                                     <form action="{{ route('admin.mentors.approve', $mentor->id) }}" method="POST" class="flex-1">
                                         @csrf @method('PATCH')
-                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-bold text-white bg-[#00695C] hover:bg-[#004D40] rounded-sm transition-all duration-200 shadow-sm">
+                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-white bg-[#00695C] hover:bg-[#004D40] rounded-sm transition-all duration-200 shadow-sm">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
                                             Approve
                                         </button>
                                     </form>
                                     <form action="{{ route('admin.mentors.reject', $mentor->id) }}" method="POST" class="flex-1">
                                         @csrf @method('PATCH')
-                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-bold text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-sm transition-all duration-200">
+                                        <button type="submit" class="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-sm transition-all duration-200">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                                             Reject
                                         </button>

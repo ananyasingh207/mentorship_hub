@@ -21,13 +21,13 @@
                             <x-input-label for="message" :value="__('Message for Mentor')" />
                             <p class="text-sm text-gray-500 mb-2">Explain why you would like to connect with this mentor, what you are building, and what kind of help you need.</p>
                             
-                            <textarea id="message" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="message" rows="5" required autofocus>{{ old('message') }}</textarea>
+                            <textarea id="message" class="block mt-1 w-full border-gray-300 px-4 py-3 focus:border-[#006B52] focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)] rounded-md shadow-sm" name="message" rows="5" required autofocus>{{ old('message') }}</textarea>
                             
                             <x-input-error :messages="$errors->get('message')" class="mt-2" />
                         </div>
 
                         <div class="flex items-center justify-end mt-6">
-                            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('mentors.show', $mentor) }}">
+                            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)]" href="{{ route('mentors.show', $mentor) }}">
                                 {{ __('Cancel') }}
                             </a>
 

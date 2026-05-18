@@ -109,7 +109,7 @@
                         @csrf
                         <div class="flex-grow">
                             <input type="text" name="message" placeholder="Type your message here..." required autocomplete="off"
-                                   class="w-full bg-gray-50 border-0 focus:ring-2 focus:ring-[#006B52] rounded-[2px] px-4 py-3 text-sm placeholder-gray-400">
+                                   class="w-full bg-gray-50 border-0 focus:ring-2 focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)] rounded-[2px] px-4 py-3 text-sm placeholder-gray-400">
                         </div>
                         <button type="submit" 
                                 class="px-8 py-3 bg-[#006B52] text-white font-bold text-sm rounded-[2px] hover:bg-[#005a45] shadow-sm transition-all">

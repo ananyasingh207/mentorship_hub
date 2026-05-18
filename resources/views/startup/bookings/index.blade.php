@@ -78,16 +78,16 @@
                                             <form action="{{ route('startup.bookings.cancel', $booking) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" class="px-6 py-2.5 border border-red-200 text-red-600 text-[10px] font-bold rounded-[2px] hover:bg-red-50 transition-all uppercase tracking-widest" onclick="return confirm('Cancel this session?')">
+                                                <button type="submit" class="px-6 py-3 border border-red-200 text-red-600 text-[10px] font-bold rounded-[2px] hover:bg-red-50 transition-all uppercase tracking-widest" onclick="return confirm('Cancel this session?')">
                                                     Cancel
                                                 </button>
                                             </form>
                                         @endif
-                                        <a href="{{ route('messages.show', $booking->mentor_id) }}" class="px-6 py-2.5 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-[2px] hover:bg-indigo-100 transition-all uppercase tracking-widest shadow-sm">
+                                        <a href="{{ route('messages.show', $booking->mentor_id) }}" class="px-6 py-3 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-[2px] hover:bg-indigo-100 transition-all uppercase tracking-widest shadow-sm">
                                             Message
                                         </a>
                                         @if($booking->status === 'completed')
-                                            <a href="{{ route('reviews.create', $booking->mentor_id) }}" class="px-6 py-2.5 bg-[#006B52] text-white text-[10px] font-bold rounded-[2px] hover:bg-[#005a45] transition-all uppercase tracking-widest shadow-sm">
+                                            <a href="{{ route('reviews.create', $booking->mentor_id) }}" class="px-6 py-3 bg-[#006B52] text-white text-[10px] font-bold rounded-[2px] hover:bg-[#005a45] transition-all uppercase tracking-widest shadow-sm">
                                                 Review
                                             </a>
                                         @endif

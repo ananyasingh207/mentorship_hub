@@ -78,12 +78,12 @@
                                             <form action="{{ route('mentor.requests.accept', $request) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" class="px-8 py-2.5 bg-[#006B52] text-white text-xs font-bold rounded-[2px] hover:bg-[#005a45] shadow-md hover:shadow-lg transition-all uppercase tracking-[0.2em]">
+                                                <button type="submit" class="px-8 py-3 bg-[#006B52] text-white text-xs font-bold rounded-[2px] hover:bg-[#005a45] shadow-md hover:shadow-lg transition-all uppercase tracking-[0.2em]">
                                                     Accept
                                                 </button>
                                             </form>
                                         @elseif($request->status === 'accepted')
-                                            <a href="{{ route('messages.show', $request->startup_id) }}" class="flex items-center gap-2 px-6 py-2.5 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-[2px] hover:bg-indigo-100 transition-all uppercase tracking-widest shadow-sm">
+                                            <a href="{{ route('messages.show', $request->startup_id) }}" class="flex items-center gap-2 px-6 py-3 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-[2px] hover:bg-indigo-100 transition-all uppercase tracking-widest shadow-sm">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                                                 Message
                                             </a>

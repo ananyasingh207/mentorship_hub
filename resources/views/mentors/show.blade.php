@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                             @if(isset($canReview) && $canReview)
-                                <a href="{{ route('reviews.create', $mentor) }}" class="px-6 py-2.5 border-2 border-[#006B52] text-[#006B52] text-[10px] font-bold rounded-[2px] hover:bg-[#006B52] hover:text-white transition-all uppercase tracking-widest">
+                                <a href="{{ route('reviews.create', $mentor) }}" class="px-6 py-3 border-2 border-[#006B52] text-[#006B52] text-[10px] font-bold rounded-[2px] hover:bg-[#006B52] hover:text-white transition-all uppercase tracking-widest">
                                     Write a Review
                                 </a>
                             @endif

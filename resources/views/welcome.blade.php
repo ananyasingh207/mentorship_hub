@@ -612,9 +612,14 @@
         .marquee-track {
             display: flex;
             width: max-content;
-            animation: ticker 20s linear infinite;
+            animation: ticker 30s linear infinite;
             gap: 60px;
             align-items: center;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 30px)); }
         }
 
         .trust-logo {
@@ -1089,8 +1094,8 @@
 
     {{-- ── Trust logos ── --}}
     <section class="py-12 bg-slate-50 border-b border-slate-100">
-        <div class="max-w-6xl mx-auto px-4 mb-6 text-center">
-            <p class="text-xs font-bold text-slate-400 tracking-[0.2em] uppercase">Mentors from companies like</p>
+        <div class="max-w-6xl mx-auto px-4 mb-12 text-center">
+            <p class="text-sm font-bold text-slate-400 tracking-[0.2em] uppercase">Mentors from companies like</p>
         </div>
         <div class="marquee-wrap">
             <div class="marquee-track">

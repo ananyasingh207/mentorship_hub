@@ -33,7 +33,7 @@
                         <!-- Pricing -->
                         <div class="mt-4">
                             <x-input-label for="pricing" :value="__('Pricing Structure')" />
-                            <select id="pricing" name="pricing" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" required>
+                            <select id="pricing" name="pricing" class="border-gray-300 focus:border-[#006B52] focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)] rounded-md shadow-sm block mt-1 w-full px-4 py-3" required>
                                 <option value="" disabled {{ old('pricing') ? '' : 'selected' }}>{{ __('Select Pricing') }}</option>
                                 <option value="free" {{ old('pricing') === 'free' ? 'selected' : '' }}>{{ __('Free') }}</option>
                                 <option value="paid" {{ old('pricing') === 'paid' ? 'selected' : '' }}>{{ __('Paid') }}</option>

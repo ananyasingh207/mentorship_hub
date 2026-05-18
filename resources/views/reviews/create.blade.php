@@ -36,7 +36,7 @@
                         <div class="mb-10">
                             <label for="review" class="block text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] mb-4">Detailed Review</label>
                             <textarea id="review" name="review" rows="6" 
-                                class="w-full bg-gray-50/50 border-gray-100 focus:border-[#006B52] focus:ring-[#006B52] rounded-[2px] shadow-sm text-sm font-medium placeholder-gray-300 transition-all duration-300" 
+                                class="w-full bg-gray-50/50 border-gray-100 px-4 py-3 focus:border-[#006B52] focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)] rounded-[2px] shadow-sm text-sm font-medium placeholder-gray-300 transition-all duration-300" 
                                 required placeholder="Describe your mentorship experience..."></textarea>
                             @error('review')
                                 <p class="text-red-500 text-[10px] font-bold uppercase tracking-widest mt-2">{{ $message }}</p>

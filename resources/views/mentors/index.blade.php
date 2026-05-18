@@ -11,26 +11,32 @@
                         <h2 class="text-2xl font-bold text-gray-900 tracking-tight">My Network</h2>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         @forelse($connectedMentors as $mentor)
                             <div
-                                class="bg-white border border-gray-100 rounded-[2px] p-6 shadow-sm flex items-center justify-between group hover:shadow-md transition-all duration-300">
-                                <div class="flex items-center gap-4">
+                                class="bg-white border border-gray-100 rounded-[2px] p-6 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group hover:shadow-md transition-all duration-300">
+                                <div class="flex items-center gap-4 min-w-0">
                                     <div
-                                        class="h-14 w-14 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-xl uppercase shadow-inner border-2 border-white">
+                                        class="h-14 w-14 flex-shrink-0 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-xl uppercase shadow-inner border-2 border-white">
                                         {{ substr($mentor->user->name, 0, 1) }}
                                     </div>
-                                    <div>
-                                        <h4 class="text-base font-bold text-gray-900">{{ $mentor->user->name }}</h4>
+                                    <div class="min-w-0">
+                                        <h4 class="text-base font-bold text-gray-900 truncate">{{ $mentor->user->name }}</h4>
                                         <p
                                             class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5 line-clamp-1">
                                             {{ $mentor->expertise }}</p>
                                     </div>
                                 </div>
-                                <a href="{{ route('messages.show', $mentor->user_id) }}"
-                                    class="px-5 py-2 bg-[#006B52] text-white text-[10px] font-bold rounded-[2px] hover:bg-[#005a45] transition-all uppercase tracking-widest shadow-sm">
-                                    Message
-                                </a>
+                                <div class="flex items-center gap-2">
+                                    <a href="{{ route('mentors.show', $mentor->id) }}"
+                                        class="px-4 py-2 border-2 border-[#006B52] text-[#006B52] text-[10px] font-bold rounded-[2px] hover:bg-[#006B52] hover:text-white transition-all uppercase tracking-widest shadow-sm whitespace-nowrap text-center">
+                                        Book Session
+                                    </a>
+                                    <a href="{{ route('messages.show', $mentor->user_id) }}"
+                                        class="px-4 py-2 border-2 border-transparent bg-[#006B52] text-white text-[10px] font-bold rounded-[2px] hover:bg-[#005a45] hover:border-[#005a45] transition-all uppercase tracking-widest shadow-sm whitespace-nowrap text-center">
+                                        Message
+                                    </a>
+                                </div>
                             </div>
                         @empty
                             <div
@@ -59,12 +65,12 @@
                             </svg>
                             <input type="text" name="expertise" value="{{ request('expertise') }}"
                                 placeholder="Search by name or keyword"
-                                class="w-full pl-12 pr-4 py-2.5 bg-gray-50/50 border-gray-100 focus:border-[#006B52] focus:ring-[#006B52] rounded-[2px] text-sm font-medium transition-all">
+                                class="w-full pl-12 pr-4 py-3 bg-gray-50/50 border-gray-100 focus:border-[#006B52] focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)] rounded-[2px] text-sm font-medium transition-all">
                         </div>
 
                         <div class="flex gap-2">
                             <button type="submit"
-                                class="px-10 py-2.5 bg-[#006B52] text-white text-[10px] font-bold rounded-[2px] hover:bg-[#005a45] transition-all uppercase tracking-[0.2em] shadow-md">
+                                class="px-10 py-3 bg-[#006B52] text-white text-[10px] font-bold rounded-[2px] hover:bg-[#005a45] transition-all uppercase tracking-[0.2em] shadow-md">
                                 Search
                             </button>
                         </div>
@@ -171,7 +177,7 @@
                                     </div>
 
                                     <a href="{{ route('mentors.show', $mentor) }}"
-                                        class="w-full py-2.5 border-2 border-gray-100 text-gray-900 text-[10px] font-bold rounded-[2px] hover:bg-gray-50 hover:border-gray-200 transition-all uppercase tracking-widest">
+                                        class="w-full py-3 border-2 border-gray-100 text-gray-900 text-[10px] font-bold rounded-[2px] hover:bg-gray-50 hover:border-gray-200 transition-all uppercase tracking-widest">
                                         View Profile
                                     </a>
                                 </div>

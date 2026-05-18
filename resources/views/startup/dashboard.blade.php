@@ -130,7 +130,7 @@
                                 @endforeach
                             </div>
 
-                            <a href="{{ route('mentors.show', $mentor) }}" class="block w-full py-2.5 text-center border-2 border-gray-100 rounded-[2px] text-xs font-bold text-gray-900 hover:bg-gray-50 hover:border-gray-200 transition-all uppercase tracking-[0.2em]">
+                            <a href="{{ route('mentors.show', $mentor) }}" class="block w-full py-3 text-center border-2 border-gray-100 rounded-[2px] text-xs font-bold text-gray-900 hover:bg-gray-50 hover:border-gray-200 transition-all uppercase tracking-[0.2em]">
                                 View Profile
                             </a>
                         </div>

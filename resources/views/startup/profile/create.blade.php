@@ -26,7 +26,7 @@
                         <!-- Stage -->
                         <div class="mt-4">
                             <x-input-label for="stage" :value="__('Current Stage')" />
-                            <select id="stage" name="stage" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" required>
+                            <select id="stage" name="stage" class="border-gray-300 focus:border-[#006B52] focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)] rounded-md shadow-sm block mt-1 w-full px-4 py-3" required>
                                 <option value="" disabled {{ old('stage') ? '' : 'selected' }}>{{ __('Select Stage') }}</option>
                                 <option value="idea" {{ old('stage') === 'idea' ? 'selected' : '' }}>{{ __('Idea') }}</option>
                                 <option value="mvp" {{ old('stage') === 'mvp' ? 'selected' : '' }}>{{ __('MVP') }}</option>
@@ -38,14 +38,14 @@
                         <!-- Problem -->
                         <div class="mt-4">
                             <x-input-label for="problem" :value="__('Problem You Are Solving')" />
-                            <textarea id="problem" name="problem" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" required>{{ old('problem') }}</textarea>
+                            <textarea id="problem" name="problem" class="border-gray-300 focus:border-[#006B52] focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)] rounded-md shadow-sm block mt-1 w-full px-4 py-3" required>{{ old('problem') }}</textarea>
                             <x-input-error :messages="$errors->get('problem')" class="mt-2" />
                         </div>
 
                         <!-- Help Needed -->
                         <div class="mt-4">
                             <x-input-label for="help_needed" :value="__('What help do you need?')" />
-                            <textarea id="help_needed" name="help_needed" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" required>{{ old('help_needed') }}</textarea>
+                            <textarea id="help_needed" name="help_needed" class="border-gray-300 focus:border-[#006B52] focus:outline-none focus:ring-1 focus:ring-[#006B52]/50 focus:shadow-[0_0_12px_rgba(0,107,82,0.15)] rounded-md shadow-sm block mt-1 w-full px-4 py-3" required>{{ old('help_needed') }}</textarea>
                             <x-input-error :messages="$errors->get('help_needed')" class="mt-2" />
                         </div>
 
